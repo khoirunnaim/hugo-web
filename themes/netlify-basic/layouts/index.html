@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kinikata — Belajar Budidaya Kata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #2d7a4f;
+      --green-light: #3ea066;
+      --green-pale: #eaf5ee;
+      --green-border: #c3e6d0;
+      --dark: #1a1f1c;
+      --body-text: #3b4340;
+      --muted: #6b7a72;
+      --bg: #f7faf8;
+      --card-bg: #ffffff;
+      --border: #e2ece6;
+      --accent: #f59e0b;
+      --radius: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--body-text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { color: var(--green-light); }
+
+    /* ─── NAVBAR ─── */
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 6px rgba(0,0,0,.05);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 18px;
+    }
+    nav { display: flex; align-items: center; gap: 6px; }
+    nav a {
+      color: var(--body-text);
+      font-weight: 500;
+      font-size: 0.88rem;
+      padding: 6px 13px;
+      border-radius: 6px;
+      transition: background .15s, color .15s;
+    }
+    nav a:hover { background: var(--green-pale); color: var(--green); }
+    .nav-cta {
+      background: var(--green);
+      color: #fff !important;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 7px;
+    }
+    .nav-cta:hover { background: var(--green-light) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #1a3a25 0%, #2d7a4f 60%, #3ea066 100%);
+      color: #fff;
+      padding: 80px 24px 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,.06) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,.06) 0%, transparent 50%);
+    }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #d4f5e3;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 em { font-style: italic; color: #a7f3c8; }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: transform .15s, box-shadow .15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+    .btn-primary { background: #fff; color: var(--green); }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.4); }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+
+    /* ─── SECTION ─── */
+    .section { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+    .section-header { margin-bottom: 36px; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 8px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--green);
+    }
+    .section-header h2 {
+      font-family: 'Merriweather', serif;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .section-header p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ─── KATEGORI ─── */
+    .kategori-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .kategori-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .kategori-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--green);
+      border-radius: 4px 0 0 4px;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .25s;
+    }
+    .kategori-card:hover { border-color: var(--green-border); box-shadow: 0 4px 18px rgba(45,122,79,.1); transform: translateY(-2px); }
+    .kategori-card:hover::before { transform: scaleY(1); }
+    .kat-icon {
+      font-size: 1.8rem;
+      width: 46px; height: 46px;
+      background: var(--green-pale);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kat-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+    .kat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .kat-arrow { font-size: 0.8rem; color: var(--green); font-weight: 600; margin-top: auto; }
+
+    /* ─── ARTIKEL GRID ─── */
+    .artikel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    .artikel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+      display: flex; flex-direction: column;
+    }
+    .artikel-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.09); transform: translateY(-3px); }
+    .artikel-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--green-pale), var(--green-border));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .artikel-thumb .tag-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 5px;
+    }
+    .artikel-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .artikel-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); line-height: 1.45; }
+    .artikel-body h3 a { color: inherit; }
+    .artikel-body h3 a:hover { color: var(--green); }
+    .artikel-excerpt { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .artikel-meta { font-size: 0.75rem; color: var(--muted); margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 12px; }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-wrap {
+      background: linear-gradient(135deg, var(--green), #1e5c36);
+      border-radius: 16px;
+      padding: 50px 40px;
+      text-align: center;
+      color: #fff;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+    }
+    .newsletter-wrap h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.7rem;
+      margin-bottom: 12px;
+    }
+    .newsletter-wrap p { color: rgba(255,255,255,.8); margin-bottom: 28px; font-size: 0.95rem; }
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .newsletter-form input {
+      flex: 1;
+      min-width: 240px;
+      padding: 11px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .newsletter-form button {
+      padding: 11px 22px;
+      background: var(--accent);
+      color: var(--dark);
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: background .15s;
+    }
+    .newsletter-form button:hover { background: #e08b00; }
+
+    /* ─── TESTIMONI ─── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .testi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .testi-text { font-size: 0.88rem; color: var(--body-text); line-height: 1.65; margin-bottom: 14px; font-style: italic; }
+    .testi-author { font-size: 0.8rem; font-weight: 600; color: var(--green); }
+    .stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 10px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.65);
+      padding: 60px 24px 30px;
+      font-size: 0.85rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-inner nav { display: none; }
+    }
+    .footer-logo { color: #fff; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; display: block; }
+    .footer-desc { line-height: 1.7; margin-bottom: 18px; }
+    .footer-col h4 { color: #fff; font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; letter-spacing: .03em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: rgba(255,255,255,.6); transition: color .15s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .social-links { display: flex; gap: 12px; }
+    .social-links a {
+      color: rgba(255,255,255,.5);
+      font-size: 0.85rem;
+      transition: color .15s;
+    }
+    .social-links a:hover { color: #fff; }
+
+    /* ─── DIVIDER ─── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-icon">✍</div>
+      Kinikata
+    </a>
+    <nav>
+      <a href="#">Beranda</a>
+      <a href="#">Tutorial</a>
+      <a href="#">Kategori</a>
+      <a href="#">Tentang</a>
+      <a href="#newsletter" class="nav-cta">Newsletter</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">✦ Blog Tutorial & Pengetahuan</div>
+    <h1>Kinikata — Belajar <em>Menulis & Berkarya</em> dengan Cara yang Menyenangkan</h1>
+    <p>Temukan tutorial, artikel, dan panduan lengkap seputar penulisan, teknologi, dan pengembangan diri. Ditulis dengan sederhana, mudah dipahami.</p>
+    <div class="hero-btns">
+      <a href="#tutorial" class="btn btn-primary">🚀 Mulai Belajar</a>
+      <a href="#newsletter" class="btn btn-outline">📬 Ikuti Newsletter</a>
+    </div>
+  </div>
+</section>
+
+<!-- KATEGORI -->
+<div class="section" id="kategori">
+  <div class="section-header">
+    <div class="section-label">Kategori</div>
+    <h2>Mau belajar apa hari ini?</h2>
+    <p>Temukan konten berdasarkan minat dan kebutuhanmu.</p>
+  </div>
+  <div class="kategori-grid">
+    <a href="#" class="kategori-card">
+      <div class="kat-icon">✍️</div>
+      <div class="kat-title">Menulis Kreatif</div>
+      <div class="kat-desc">Pelajari teknik menulis cerita, esai, dan konten yang memikat pembaca.</div>
+      <div class="kat-arrow">Lihat tutorial →</div>
+    </a>
+    <a href="#" class="kategori-card">
+      <div class="kat-icon">📱</div>
+      <div class="kat-title">Konten Digital</div>
+      <div class="kat-desc">Panduan membuat konten media sosial, blog, dan video yang viral.</div>
+      <div class="kat-arrow">Lihat tutorial →</div>
+    </a>
+    <a href="#" class="kategori-card">
+      <div class="kat-icon">📚</div>
+      <div class="kat-title">Literasi & Buku</div>
+      <div class="kat-desc">Rekomendasi buku, ringkasan, dan cara membaca efektif.</div>
+      <div class="kat-arrow">Lihat tutorial →</div>
+    </a>
+    <a href="#" class="kategori-card">
+      <div class="kat-icon">💡</div>
+      <div class="kat-title">Produktivitas</div>
+      <div class="kat-desc">Tips dan trik mengelola waktu, fokus, dan kebiasaan positif setiap hari.</div>
+      <div class="kat-arrow">Lihat tutorial →</div>
+    </a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ARTIKEL TERBARU -->
+<div class="section" id="tutorial">
+  <div class="section-header">
+    <div class="section-label">Update</div>
+    <h2>Apa yang baru di Kinikata? 🔥</h2>
+    <p>Baca artikel terbaru yang masih fresh dan hangat.</p>
+  </div>
+  <div class="artikel-grid">
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        📝
+        <span class="tag-badge">Menulis</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">Cara Menulis Artikel Blog yang Menarik dan SEO-Friendly</a></h3>
+        <p class="artikel-excerpt">Pelajari langkah demi langkah cara menulis artikel blog yang tidak hanya menarik dibaca, tapi juga mudah ditemukan di Google...</p>
+        <div class="artikel-meta">
+          <span>📅 10 Mar 2025</span>
+          <span>⏱ 8 menit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        🎯
+        <span class="tag-badge">Produktivitas</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">5 Teknik Pomodoro yang Wajib Kamu Coba untuk Fokus Lebih Lama</a></h3>
+        <p class="artikel-excerpt">Teknik Pomodoro bukan sekadar timer 25 menit. Ada cara-cara lanjutan yang bisa melipatgandakan produktivitasmu...</p>
+        <div class="artikel-meta">
+          <span>📅 7 Mar 2025</span>
+          <span>⏱ 6 menit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        📱
+        <span class="tag-badge">Konten Digital</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">Panduan Lengkap Membuat Caption Instagram yang Engaging</a></h3>
+        <p class="artikel-excerpt">Caption yang baik bisa meningkatkan interaksi hingga 3x lipat. Ini adalah formula yang terbukti berhasil untuk berbagai niche...</p>
+        <div class="artikel-meta">
+          <span>📅 4 Mar 2025</span>
+          <span>⏱ 10 menit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        📚
+        <span class="tag-badge">Literasi</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">10 Buku Self-Development Terbaik yang Wajib Dibaca Tahun Ini</a></h3>
+        <p class="artikel-excerpt">Dari klasik abadi hingga terbitan baru, ini adalah daftar buku yang benar-benar mengubah cara berpikir banyak orang...</p>
+        <div class="artikel-meta">
+          <span>📅 1 Mar 2025</span>
+          <span>⏱ 5 menit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        ✍️
+        <span class="tag-badge">Menulis</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">Mengatasi Writer's Block: 7 Cara Ampuh yang Terbukti Berhasil</a></h3>
+        <p class="artikel-excerpt">Setiap penulis pernah mengalami kebuntuan. Tapi ada strategi konkret untuk melewatinya dan kembali produktif menulis...</p>
+        <div class="artikel-meta">
+          <span>📅 26 Feb 2025</span>
+          <span>⏱ 7 menit</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="artikel-card">
+      <div class="artikel-thumb">
+        🧠
+        <span class="tag-badge">Produktivitas</span>
+      </div>
+      <div class="artikel-body">
+        <h3><a href="#">Cara Membuat Second Brain dengan Obsidian untuk Pemula</a></h3>
+        <p class="artikel-excerpt">Second brain adalah sistem untuk menyimpan dan mengolah informasi di luar kepalamu. Obsidian adalah tool terbaik untuk itu...</p>
+        <div class="artikel-meta">
+          <span>📅 22 Feb 2025</span>
+          <span>⏱ 12 menit</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div style="padding: 0 24px;" id="newsletter">
+  <div class="newsletter-wrap">
+    <h2>📬 Biar gak ketinggalan update...</h2>
+    <p>Subscribe Newsletter Kinikata agar kamu dapat info dan tips terbaru langsung di emailmu. Gratis, tanpa spam!</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Masukkan email kamu..." />
+      <button type="submit">Subscribe ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONI -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Review</div>
+    <h2>Apa kata mereka? 🤩</h2>
+    <p>Kata mereka yang belajar di Kinikata.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Artikelnya selalu mudah dipahami dan langsung bisa dipraktekin. Terima kasih Kinikata!"</p>
+      <div class="testi-author">~ Rizky Aditya</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Akhirnya nemu blog yang ngebahas dunia tulis-menulis dengan cara yang seru dan tidak membosankan."</p>
+      <div class="testi-author">~ Sari Dewi</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Konten Kinikata selalu fresh dan relevan. Newsletter-nya juga informatif banget, wajib subscribe!"</p>
+      <div class="testi-author">~ Farhan Maulana</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">✍ Kinikata</span>
+        <p class="footer-desc">Tempat belajar budidaya kata dan konten dengan tutorial yang gampang dipahami dan langsung dipraktekin.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Belajar</h4>
+        <ul>
+          <li><a href="#">Artikel</a></li>
+          <li><a href="#">Tutorial</a></li>
+          <li><a href="#">Kategori</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Populer</h4>
+        <ul>
+          <li><a href="#">Menulis Kreatif</a></li>
+          <li><a href="#">Konten Digital</a></li>
+          <li><a href="#">Produktivitas</a></li>
+          <li><a href="#">Literasi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kinikata</h4>
+        <ul>
+          <li><a href="#">Tentang</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Kontak</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 <strong style="color:#fff">Kinikata</strong> · Made with ❤️</span>
+      <div class="social-links">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter/X</a>
+        <a href="#">Facebook</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
